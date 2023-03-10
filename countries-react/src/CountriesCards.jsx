@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CountriesCards(props) {
+  const [searchInput, setSearchInput] = useState("");
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+  };
+
+  function filterSearch() {
+    let filterData = [];
+    filterData = props.data.filter((country) =>
+      country.name.includes(searchInput)
+    );
+    return filterData.map((el) => createCard(el));
+  }
+
   function createCard(country) {
     return (
       <div className="cardContainer">
@@ -27,8 +41,14 @@ export default function CountriesCards(props) {
     );
   }
   return (
-    <div className="cardsContainer">
-      {props.data.map((country) => createCard(country))}
-    </div>
+    <>
+      <input
+        className="searchBar"
+        type="search"
+        value={searchInput}
+        onChange={handleChange}
+      />
+      <div className="cardsContainer">{filterSearch()}</div>
+    </>
   );
 }
