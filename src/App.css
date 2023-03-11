@@ -62,10 +62,15 @@
 
 .searchBar {
   width: 30%;
-  margin-left: 35%;
   text-align: center;
   padding: 1%;
   margin-top: 1%;
   border: none;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.searchDropDown {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

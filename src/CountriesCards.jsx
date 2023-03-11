@@ -17,6 +17,8 @@ export default function CountriesCards(props) {
     return filterData.map((el) => createCard(el));
   }
 
+  const [dropDown, setDropDown] = useState("");
+
   function createCard(country) {
     return (
       <div className="cardContainer">
@@ -44,12 +46,18 @@ export default function CountriesCards(props) {
   }
   return (
     <>
-      <input
-        className="searchBar"
-        type="search"
-        value={searchInput}
-        onChange={handleChange}
-      />
+      <div>
+        <div className="searchDropDown">
+          <label>Search for a Country:</label>
+          <input
+            className="searchBar"
+            type="search"
+            value={searchInput}
+            onChange={handleChange}
+          />
+        </div>
+        <input type="select" value={dropDown} onChange={setDropDown} />
+      </div>
       <div className="cardsContainer">{filterSearch()}</div>
     </>
   );
