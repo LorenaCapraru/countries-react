@@ -9,8 +9,10 @@ export default function CountriesCards(props) {
 
   function filterSearch() {
     let filterData = [];
-    filterData = props.data.filter((country) =>
-      country.name.toLowerCase().includes(searchInput.toLowerCase())
+    filterData = props.data.filter(
+      (country) =>
+        country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+        country.capital.toLowerCase().includes(searchInput.toLowerCase())
     );
     return filterData.map((el) => createCard(el));
   }
