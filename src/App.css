@@ -61,16 +61,32 @@
 }
 
 .searchBar {
-  width: 30%;
+  /* width: 100%; */
   text-align: center;
   padding: 1%;
   margin-top: 1%;
   border: none;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 200px;
 }
 
 .searchDropDown {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.searchDropDown label {
+  padding-top: 5px;
+}
+.dropDownAndSelect {
+  padding: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+select {
+  width: 200px;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
