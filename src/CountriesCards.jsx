@@ -9,36 +9,34 @@ export default function CountriesCards(props) {
 
   function filterSearch() {
     let filterData = [];
-    filterData = props.data.filter(
-      (country) =>
-        country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
-        country.capital.toLowerCase().includes(searchInput.toLowerCase())
-    );
+    filterData = props.data
+      .filter(
+        (country) =>
+          country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+          country.capital.toLowerCase().includes(searchInput.toLowerCase())
+      )
+      .filter((el) => el.region === selectChange);
     return filterData.map((el) => createCard(el));
   }
 
-  const [selectChange, setSelectChange] = useState(props.data);
+  const [selectChange, setSelectChange] = useState("");
   const handleSelectChange = (e) => {
     e.preventDefault();
     setSelectChange(e.target.value);
   };
 
-  function filteredList() {
-    // let filterData = [];
-    // filterData = props.data.filter((country) =>
-    //   country.region.includes(selectChange.toLowerCase())
-    // );
-    // return filterData.map((el) => createCard(el));
-    return props.data
-      .filter((el) => el.region === selectChange)
-      .map((el) => createCard(el));
+  function filteredList(data) {
+    return selectChange === "Filter by Region"
+      ? data.map((el) => createCard(el))
+      : data
+          .filter((el) => el.region === selectChange)
+          .map((el) => createCard(el));
   }
 
-  function createOptions(data) {
-    let newArray = data;
+  function createOptions() {
+    let newArray = [...props.data];
     return newArray.map((el) => <option>{el.region}</option>);
   }
-  // console.log(createOptions);
   function createCard(country) {
     return (
       <div className="cardContainer">
@@ -69,7 +67,7 @@ export default function CountriesCards(props) {
       <div className="dropDownAndSelect">
         <div className="searchDropDown">
           <label>
-            <i>Search for a Country:</i>
+            <i>Search for a Country: </i>
           </label>
           <input
             className="searchBar"
@@ -80,16 +78,24 @@ export default function CountriesCards(props) {
         </div>
         <div className="dropdown">
           <select onChange={handleSelectChange}>
-            <option>All region</option>
-            {/* {selectChange.length === 0
-              ? 
-              : filteredList(props.data)} */}
-            {createOptions(props.data)}
+            <option>Filter by Region</option>
+            {/* {props.data.map((el) => (
+              <option>{el.region}</option>
+            ))} */}
+            {createOptions()}
           </select>
         </div>
       </div>
-      <div className="cardsContainer">{filterSearch()}</div>
-      <div className="cardsContainer">{filteredList()}</div>
+      {(!selectChange || selectChange === "Filter by Region") &&
+      !searchInput ? (
+        <div className="cardsContainer">
+          {props.data.map((el) => createCard(el))}
+        </div>
+      ) : (
+        <div className="cardsContainer">
+          {(filteredList(props.data), filterSearch())}
+        </div>
+      )}
     </>
   );
 }
