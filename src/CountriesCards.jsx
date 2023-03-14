@@ -7,19 +7,26 @@ export default function CountriesCards(props) {
     setSearchInput(e.target.value);
   };
 
-  function filterSearch() {
+  function filterSearch(data) {
     let filterData = [];
-    filterData = props.data
-      .filter(
+    if (selectChange === "Filter by Region")
+      filterData = data.filter(
         (country) =>
           country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
           country.capital.toLowerCase().includes(searchInput.toLowerCase())
-      )
-      .filter((el) => el.region === selectChange);
+      );
+    else
+      filterData = data
+        .filter(
+          (country) =>
+            country.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+            country.capital.toLowerCase().includes(searchInput.toLowerCase())
+        )
+        .filter((el) => el.region === selectChange);
     return filterData.map((el) => createCard(el));
   }
 
-  const [selectChange, setSelectChange] = useState("");
+  const [selectChange, setSelectChange] = useState("Filter by Region");
   const handleSelectChange = (e) => {
     e.preventDefault();
     setSelectChange(e.target.value);
@@ -40,12 +47,9 @@ export default function CountriesCards(props) {
     lastArr = newArr.filter(
       (element, index) => newArr.indexOf(element) === index
     );
-    console.log(lastArr);
     return lastArr.map((el) => <option>{el}</option>);
-
-    // let newArray = [...props.data];
-    // return newArray.map((el) => <option>{el.region}</option>);
   }
+
   function createCard(country) {
     return (
       <div className="cardContainer">
@@ -102,9 +106,10 @@ export default function CountriesCards(props) {
         </div>
       ) : (
         <div className="cardsContainer">
-          {(filteredList(props.data), filterSearch())}
+          {(filteredList(props.data), filterSearch(props.data))}
         </div>
       )}
+      {/* <div className="cardsContainer">{filteredList(props.data)}</div> */}
     </>
   );
 }
