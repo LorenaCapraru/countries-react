@@ -34,8 +34,17 @@ export default function CountriesCards(props) {
   }
 
   function createOptions() {
-    let newArray = [...props.data];
-    return newArray.map((el) => <option>{el.region}</option>);
+    let newArr = [];
+    let lastArr = [];
+    [...props.data].map((el) => newArr.push(el.region));
+    lastArr = newArr.filter(
+      (element, index) => newArr.indexOf(element) === index
+    );
+    console.log(lastArr);
+    return lastArr.map((el) => <option>{el}</option>);
+
+    // let newArray = [...props.data];
+    // return newArray.map((el) => <option>{el.region}</option>);
   }
   function createCard(country) {
     return (
